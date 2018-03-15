@@ -5,7 +5,7 @@
 library(igraph)
 
 # model parameters
-p_list <- sort(seq(0.004, 0.2, by = 0.01), decreasing = FALSE) # probabilities of degree in random graph
+p_list <- sort(seq(0.0001, 0.02, by = 0.001), decreasing = FALSE) # probabilities of degree in random graph
 n <- 5000 # size of population
 n0 <- 200 # initial number of people joining riot
 tau <- 0.12 # the homogeneous threshold of all individuals
