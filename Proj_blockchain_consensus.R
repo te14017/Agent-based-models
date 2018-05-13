@@ -23,7 +23,7 @@ init_env <- function(n, net_type, para, lamda_c, lamda_t) {
   if (net_type == 0) {
     net <- erdos.renyi.game(n, (n*para)/2, type = "gnm")
   } else {
-    net <- sample_pa(n, power = para)
+    net <- sample_pa(n, power = para, m = 2)
   }
   # initialize nodes attributes
   c_power <- rexp(n, rate = lamda_c) # sample from Exp to get computing power
@@ -125,7 +125,7 @@ run_on_net <- function(net) {
 
 # run experiemtns with parameters
 run_experiments <- function() {
-  net <- init_env(n, 0, 8, 1, 10^2)
+  net <- init_env(n, 1, 0.5, 1, 10^3.8)
   net <- run_on_net(net)
   print(paste("max blockchain height: ", max(V(net)$height)))
   print(paste("branches during consensus: ", net$branches))
@@ -135,16 +135,24 @@ run_experiments <- function() {
 # start
 run_experiments()
 
-x <- c(10^2, 10^2.2, 10^2.4, 10^2.5, 10^2.7, 10^2.8, 10^3, 10^3.1, 10^3.2, 10^3.3, 10^3.4, 10^3.5, 10^3.6, 10^3.7, 10^3.8)
-y1 <- matrix(c(1,2,38,209,536,536,468,440,418,293,250,179,164,116,120,1,1,3,6,230,281,261,312,482,544,744,637,576,372,332,1,1,1,1,2,3,57,103,318,403,722,1140,715,664,443),15,3)
-matplot(x, y1, main = expression(paste('Nr of branches as a function of ', lambda[t])),type = "b", pch = 15:17, col = 1:3, log = "x", ylim = c(1,1200), xlab = expression(lambda[t]), ylab = 'Nr of branches')
-legend("topleft", legend = c('k = 2', 'k = 4', 'k = 8'),inset = 0.05, pch = 15:17, col = 1:3, bg = ("white"), horiz = F)
+#x <- c(10^2, 10^2.2, 10^2.4, 10^2.5, 10^2.7, 10^2.8, 10^3, 10^3.1, 10^3.2, 10^3.3, 10^3.4, 10^3.5, 10^3.6, 10^3.7, 10^3.8)
+#y1 <- matrix(c(1,2,38,209,536,536,468,440,418,293,250,179,164,116,120,1,1,3,6,230,281,261,312,482,544,744,637,576,372,332,1,1,1,1,2,3,57,103,318,403,722,1140,715,664,443),15,3)
+#matplot(x, y1, main = expression(paste('Nr of branches as a function of ', lambda[t])),type = "b", pch = 15:17, col = 1:3, log = "x", ylim = c(1,1200), xlab = expression(lambda[t]), ylab = 'Nr of branches')
+#legend("topleft", legend = c('k = 2', 'k = 4', 'k = 8'),inset = 0.05, pch = 15:17, col = 1:3, bg = ("white"), horiz = F)
 
-y2 <- matrix(c(0,1,37,210,711,560,488,452,479,378,311,242,236,142,160,0,2,5,229,280,268,322,497,590,1045,832,785,699,405,0,0,0,1,2,56,112,342,436,832,1198,894,859,460),15,3)
-matplot(x, y2, main = expression(paste('Nr of discarded blocks as a function of ', lambda[t])),type = "b", pch = 12:14, col = 1:3, log = "x", ylim = c(1,1250), xlab = expression(lambda[t]), ylab = 'Nr of discarded blocks')
-legend("topleft", legend = c('k = 2', 'k = 4', 'k = 8'),inset = 0.05, pch = 12:14, col = 1:3, bg = ("white"), horiz = F)
+#y2 <- matrix(c(0,1,37,210,711,560,488,452,479,378,311,242,236,142,160,0,2,5,229,280,268,322,497,590,1045,832,785,699,405,0,0,0,1,2,56,112,342,436,832,1198,894,859,460),15,3)
+#matplot(x, y2, main = expression(paste('Nr of discarded blocks as a function of ', lambda[t])),type = "b", pch = 12:14, col = 1:3, log = "x", ylim = c(1,1250), xlab = expression(lambda[t]), ylab = 'Nr of discarded blocks')
+#legend("topleft", legend = c('k = 2', 'k = 4', 'k = 8'),inset = 0.05, pch = 12:14, col = 1:3, bg = ("white"), horiz = F)
 
-y3 <- matrix(c(0.84,0.8,0.64,0.56,0.48,0.42,0.34,0.32,0.3,0.24,0.2,0.18,0.16,0.14,0.1,0.98,0.98,0.96,0.9,0.72,0.7,0.56,0.46,0.44,0.4,0.32,0.28,0.26,0.24,0.2,1.0,1.0,1.0,1.0,0.96,0.9,0.78,0.74,0.7,0.62,0.56,0.48,0.38,0.34,0.3),15,3)
-matplot(x, y3, main = expression(paste('Finalized block ratio as a function of ', lambda[t])),type = "b", pch = 20:22, col = 1:3, log = "x", ylim = c(0,1.2), xlab = expression(lambda[t]), ylab = 'Finalized block ratio')
-legend("topright", legend = c('k = 2', 'k = 4', 'k = 8'),inset = 0.05, pch = 20:22, col = 1:3, bg = ("white"), horiz = F)
+#y3 <- matrix(c(0.84,0.8,0.64,0.56,0.48,0.42,0.34,0.32,0.3,0.24,0.2,0.18,0.16,0.14,0.1,0.98,0.98,0.96,0.9,0.72,0.7,0.56,0.46,0.44,0.4,0.32,0.28,0.26,0.24,0.2,1.0,1.0,1.0,1.0,0.96,0.9,0.78,0.74,0.7,0.62,0.56,0.48,0.38,0.34,0.3),15,3)
+#matplot(x, y3, main = expression(paste('Finalized block ratio as a function of ', lambda[t])),type = "b", pch = 20:22, col = 1:3, log = "x", ylim = c(0,1.2), xlab = expression(lambda[t]), ylab = 'Finalized block ratio')
+#legend("topright", legend = c('k = 2', 'k = 4', 'k = 8'),inset = 0.05, pch = 20:22, col = 1:3, bg = ("white"), horiz = F)
 
+x1 <- c(10^-1, 10^0, 10^1, 10^2, 10^2.5, 10^3, 10^3.5, 10^3.8)
+y4 <- matrix(c(26,29,27,29,27,25,24,23,6,6,7,6,6,5,4,3,6,9,6,6,7,6,5,4),8,3)
+matplot(x1, y4, main = expression(paste('Nr of branches as a function of ', lambda[t], 'in Scale-free net')),type = "b", pch = 15:17, col = 1:3, log = "x", ylim = c(0,50), xlab = expression(lambda[t]), ylab = 'Nr of branches')
+legend("topleft", legend = c('pa = 0.5', 'pa = 5', 'pa = 10'),inset = 0.02, pch = 15:17, col = 1:3, bg = ("white"), horiz = F)
+
+y5 <- matrix(c(0.12,0.08,0.1,0.08,0.08,0.08,0.06,0.06,0.06,0.06,0.08,0.06,0.08,0.06,0.06,0.06,0.06,0.08,0.06,0.08,0.06,0.06,0.06,0.06),8,3)
+matplot(x1, y5, main = expression(paste('Finalized block ratio as a function of ', lambda[t], 'in Scale-free net')),type = "b", pch = 20:22, col = 1:3, log = "x", ylim = c(0,0.28), xlab = expression(lambda[t]), ylab = 'Finalized block ratio')
+legend("topright", legend = c('pa = 0.5', 'pa = 5', 'pa = 10'),inset = 0.05, pch = 20:22, col = 1:3, bg = ("white"), horiz = F)
